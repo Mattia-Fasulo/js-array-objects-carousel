@@ -61,13 +61,17 @@ const btnNext = document.querySelector(".carousel-control-next")
 
 let activeindex = 0;
 
+//function that generates the slider
 function generatorSlider() {
+
     const slider = document.createElement('div');
     slider.className = 'carousel-inner';
 
     images.forEach((value, index) => {
+
+        //generate slide
         const slide = document.createElement('div');
-        slide.className = (index === 0) ? 'carousel-item active' :'carousel-item';
+        slide.className = (index === 0) ? 'carousel-item active' : 'carousel-item';
         slide.innerHTML = `
     <img src="${value.url}" class="d-block w-100" alt="${value.title}">
     <div class="carousel-caption d-none d-md-block">
@@ -75,10 +79,18 @@ function generatorSlider() {
         <p>${value.description}</p>
     </div>
     `
-    slider.append(slide);
+        slider.append(slide);
+        
+        //generate thubnails
+        const cols = document.createElement('div');
+        cols.classList.add('col');
+        cols.innerHTML = `
+        <img src="${value.url}" alt="${value.title}">
+        `
+        row.appendChild(cols);       
     })
 
-    sliderContainerHTML.insertBefore(slider,btnPrev)
+    sliderContainerHTML.insertBefore(slider, btnPrev)
 }
 
 generatorSlider();
@@ -86,10 +98,26 @@ generatorSlider();
 const bigSlides = Array.from(document.querySelectorAll('.carousel-item'));
 console.log(bigSlides);
 
-function playCarousel (){
+function playCarousel(right) {
     bigSlides[activeindex].classList.toggle('active');
-    activeindex++;
-    bigSlides[activeindex].classList.toggle('active');
+    if (right) {
+        activeindex = (activeindex == bigSlides.length - 1) ? 0 : (activeindex + 1)
+    }
+    else {
+        activeindex = (activeindex == 0) ? bigSlides.length - 1 : (activeindex - 1)
+            ;
+    }
+    bigSlides[activeindex].classList.toggle('active')
 }
 
-btnNext.addEventListener('click', playCarousel)
+btnNext.addEventListener('click', () => {
+    playCarousel(true);
+})
+
+btnPrev.addEventListener('click', () => {
+    playCarousel(false);
+})
+
+const autoSlide = setInterval(function () {
+    btnNext.click();
+}, 3000)

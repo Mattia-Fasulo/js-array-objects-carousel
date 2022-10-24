@@ -34,4 +34,10 @@ img {
   height: 120px;
 }
 
+.opacity {
+  opacity: 0.4;
+}
 
+.row {
+  background-color: black;
+}

@@ -61,15 +61,16 @@ const btnNext = document.querySelector(".carousel-control-next")
 
 let activeindex = 0;
 
-//function that generates the slider
-function generatorSlider() {
+//funzione che genera il carosello
+function drawCarousel() {
+
 
     const slider = document.createElement('div');
     slider.className = 'carousel-inner';
 
     images.forEach((value, index) => {
 
-        //generate slide
+        //genero le slide
         const slide = document.createElement('div');
         slide.className = (index === 0) ? 'carousel-item active' : 'carousel-item';
         slide.innerHTML = `
@@ -80,10 +81,10 @@ function generatorSlider() {
     </div>
     `
         slider.append(slide);
-        
-        //generate thubnails
+
+        //genero le thubnails
         const cols = document.createElement('div');
-        cols.classList.add('col');
+        cols.classList = (index == 0) ? ('col') : ('col','opacity');
         cols.innerHTML = `
         <img src="${value.url}" alt="${value.title}">
         `
@@ -93,13 +94,23 @@ function generatorSlider() {
     sliderContainerHTML.insertBefore(slider, btnPrev)
 }
 
-generatorSlider();
+drawCarousel();
 
+//genero un array con tutti div dello slider
 const bigSlides = Array.from(document.querySelectorAll('.carousel-item'));
-console.log(bigSlides);
 
+//generoi un array con tutte le col presenti nella row
+const thubnails = Array.from(row.children);
+
+// console.log(bigSlides);
+// console.log(thubnails);
+
+//funzione che gestisce il funzionamento del carosello
 function playCarousel(right) {
+    
     bigSlides[activeindex].classList.toggle('active');
+    thubnails[activeindex].classList.toggle('opacity');
+  
     if (right) {
         activeindex = (activeindex == bigSlides.length - 1) ? 0 : (activeindex + 1)
     }
@@ -107,7 +118,9 @@ function playCarousel(right) {
         activeindex = (activeindex == 0) ? bigSlides.length - 1 : (activeindex - 1)
             ;
     }
+
     bigSlides[activeindex].classList.toggle('active')
+    thubnails[activeindex].classList.toggle('opacity');
 }
 
 btnNext.addEventListener('click', () => {

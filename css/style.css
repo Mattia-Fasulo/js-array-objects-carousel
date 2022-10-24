@@ -1,0 +1,28 @@
+/* reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* general */
+body {
+  font-family: "Source Code Pro", monospace;
+}
+
+.container {
+  max-width: 700px;
+}
+
+.carousel-caption {
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.337);
+  position: absolute;
+  top: 0px;
+  height: 120px;
+}
+
+.row {
+  border: 1px solid black;
+  height: 50px;
+}
+
